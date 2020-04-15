@@ -54,7 +54,12 @@
         function generateCanva(imagesList) { 
             var imgPreguntas = "img/preguntas.png";
             var imgUsername = "img/username.png";
-            var canvas = new fabric.Canvas('c');
+            var canvas = new fabric.Canvas('c',{
+        selection : false,
+        controlsAboveOverlay:true,
+        centeredScaling:true,
+        allowTouchScrolling: true
+    });
             
             canvas.backgroundColor ="#f7cac9";
             
