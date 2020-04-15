@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="fabric.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container"></div>
+        <div class ="row justify-content-center">
+        <img src="img/logo.png" width="140px">
+        </div>
+        <div class ="row justify-content-center" style="margin:20px;">
+            <p>Crea una plantilla de <b>¿Quien tiene más probabilidad de...?</b> Sube una imagen por cada amiga (mínimo 2 y máximo 6)</p>
+        </div>
+        <div class ="row justify-content-center">
+        <input id ="files" style="margin:20px;" type='file' multiple/>
+        <br>
+        <button type="button" class="btn btn-secondary" id="tryAgain" style="margin-top:20px; margin-left:20px; width:90%; max-width:540px; display:none;" onClick="window.location.reload();">Probar otra vez</button>
+        <a class="btn btn-primary" style="margin:20px; max-width:540px; width:90%; display:none" id="download" download="myImage.jpg" href="" onclick="download_img(this);">Descargar para Stories</a>
+        </div>
+        <canvas style="margin:20px; display:none" id="c" width="540" height="960"></canvas>
+        <br>
+    </div>
+    <script>
+        
+
+
+        //IMAGE INPUT SINCE HERE
+
+        window.addEventListener('load', function() {
+            document.querySelector('input[type="file"]').addEventListener('change', function() {
+                if (this.files) {
+                    var imagesList = [];
+                    for (var i=0; i < this.files.length; i++){
+                        let image = document.createElement('img');
+                        image.src = URL.createObjectURL(this.files[i]);
+                        //image.onload = imageIsLoaded(image.src);
+                        imagesList.push(image.src);
+                    }
+                    
+                    generateCanva(imagesList);
+                }
+            });
+        });
+
+
+        function generateCanva(imagesList) { 
+            var imgPreguntas = "img/preguntas.png";
+            var imgUsername = "img/username.png";
+            var canvas = new fabric.Canvas('c');
+            
+            canvas.backgroundColor ="#f7cac9";
+            
+            if (imagesList.length == 2){
+
+                var clipPath = new fabric.Rect({ width: 250, height:250, top: 80, left: 145, absolutePositioned: true, rx:10, ry:10 });
+                var clipPath2 = new fabric.Rect({ width: 250, height:250, top: 520, left: 145, absolutePositioned: true, rx:10, ry:10 });
+
+                //FIRST IMAGE
+                fabric.Image.fromURL(imagesList[0], function(img) {
+                var oImg = img.set({ left: 145, top: 80}).scale(1);
+                oImg.scaleToWidth(260);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath;
+                }, { crossOrigin: 'anonymous'});
+
+                //FIRST USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 145, top: 330}).scale(1);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+                //PREGUNTAS
+                fabric.Image.fromURL(imgPreguntas, function(img) {
+                var oImg = img.set({ left: 200, top: 400}).scale(0.5);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+                //SECOND IMAGE
+                fabric.Image.fromURL(imagesList[1], function(img) {
+                var oImg = img.set({ left: 145, top: 520}).scale(1);
+                oImg.scaleToWidth(260);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath2;
+                }, { crossOrigin: 'anonymous'});
+
+                //SECOND USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 145, top: 770}).scale(1);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+            }
+
+            else if (imagesList.length == 3){
+                var clipPath = new fabric.Rect({ width: 250, height:250, top: 70, left: 10, absolutePositioned: true, rx:10, ry:10 });
+                var clipPath2 = new fabric.Rect({ width: 250, height:250, top: 320, left: 280, absolutePositioned: true, rx:10, ry:10 });
+                var clipPath3 = new fabric.Rect({ width: 250, height:250, top: 580, left: 10, absolutePositioned: true, rx:10, ry:10 });
+
+                //FIRST IMAGE
+                fabric.Image.fromURL(imagesList[0], function(img) {
+                var oImg = img.set({ left: 10, top: 70}).scale(1);
+                oImg.scaleToWidth(260);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath;
+                }, { crossOrigin: 'anonymous'});
+
+                //FIRST USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 10, top: 330}).scale(1);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+                //SECOND IMAGE
+                fabric.Image.fromURL(imagesList[1], function(img) {
+                var oImg = img.set({ left: 280, top: 320}).scale(1);
+                oImg.scaleToWidth(260);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath2;
+                }, { crossOrigin: 'anonymous'});
+
+                //SECOND USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 280, top: 580}).scale(1);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+                //THIRD IMAGE
+                fabric.Image.fromURL(imagesList[2], function(img) {
+                var oImg = img.set({ left: 10, top: 580}).scale(1);
+                oImg.scaleToWidth(260);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath3;
+                }, { crossOrigin: 'anonymous'});
+
+                //THIRD USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 10, top: 840}).scale(1);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+
+                //PREGUNTAS
+                fabric.Image.fromURL(imgPreguntas, function(img) {
+                var oImg = img.set({ left: 60, top: 420}).scale(0.5);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+            }
+
+            else if (imagesList.length == 4){
+
+                var clipPath = new fabric.Rect({ width: 250, height:250, top: 80, left: 10, absolutePositioned: true, rx:10, ry:10 });
+                var clipPath2 = new fabric.Rect({ width: 250, height:250, top: 520, left: 10, absolutePositioned: true, rx:10, ry:10 });
+                var clipPath3 = new fabric.Rect({ width: 250, height:250, top: 80, left: 280, absolutePositioned: true, rx:10, ry:10 });
+                var clipPath4 = new fabric.Rect({ width: 250, height:250, top: 520, left: 280, absolutePositioned: true, rx:10, ry:10 });
+
+                //FIRST IMAGE
+                fabric.Image.fromURL(imagesList[0], function(img) {
+                var oImg = img.set({ left: 10, top: 80}).scale(1);
+                oImg.scaleToWidth(260);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath;
+                }, { crossOrigin: 'anonymous'});
+
+                //FIRST USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 10, top: 330}).scale(1);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+
+                //SECOND IMAGE
+                fabric.Image.fromURL(imagesList[1], function(img) {
+                var oImg = img.set({ left: 10, top: 520}).scale(1);
+                oImg.scaleToWidth(260);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath2;
+                }, { crossOrigin: 'anonymous'});
+
+                //SECOND USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 10, top: 770}).scale(1);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+                //THIRD IMAGE
+                fabric.Image.fromURL(imagesList[2], function(img) {
+                var oImg = img.set({ left: 280, top: 80}).scale(1);
+                oImg.scaleToWidth(260);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath3;
+                }, { crossOrigin: 'anonymous'});
+
+                //THIRD USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 280, top: 330}).scale(1);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+                //FOURTH IMAGE
+                fabric.Image.fromURL(imagesList[3], function(img) {
+                var oImg = img.set({ left: 280, top: 520}).scale(1);
+                oImg.scaleToWidth(260);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath4;
+                }, { crossOrigin: 'anonymous'});
+
+                //FOURTH USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 280, top: 770}).scale(1);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+                //PREGUNTAS
+                fabric.Image.fromURL(imgPreguntas, function(img) {
+                var oImg = img.set({ left: 200, top: 400}).scale(0.5);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+            }
+
+            else if (imagesList.length == 5){
+                var clipPath = new fabric.Rect({ width: 200, height:200, top: 80, left: 40, absolutePositioned: true, rx:10, ry:10 });
+                var clipPath2 = new fabric.Rect({ width: 200, height:200, top: 590, left: 40, absolutePositioned: true, rx:10, ry:10 });
+                var clipPath3 = new fabric.Rect({ width: 200, height:200, top: 80, left: 300, absolutePositioned: true, rx:10, ry:10 });
+                var clipPath4 = new fabric.Rect({ width: 200, height:200, top: 590, left: 300, absolutePositioned: true, rx:10, ry:10 });
+                var clipPath5 = new fabric.Rect({ width: 200, height:200, top: 340, left: 300, absolutePositioned: true, rx:10, ry:10 });
+
+                
+                //FIRST IMAGE
+                fabric.Image.fromURL(imagesList[0], function(img) {
+                var oImg = img.set({ left: 40, top: 50}).scale(1);
+                oImg.scaleToWidth(230);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath;
+                }, { crossOrigin: 'anonymous'});
+
+                //FIRST USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 40, top: 290}).scale(0.8);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+
+                //SECOND IMAGE
+                fabric.Image.fromURL(imagesList[1], function(img) {
+                var oImg = img.set({ left: 40, top: 590}).scale(1);
+                oImg.scaleToWidth(230);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath2;
+                }, { crossOrigin: 'anonymous'});
+
+                //SECOND USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 40, top: 800}).scale(0.8);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+                //THIRD IMAGE
+                fabric.Image.fromURL(imagesList[2], function(img) {
+                var oImg = img.set({ left: 300, top: 80}).scale(1);
+                oImg.scaleToWidth(230);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath3;
+                }, { crossOrigin: 'anonymous'});
+
+                //THIRD USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 300, top: 290}).scale(0.8);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+                //FOURTH IMAGE
+                fabric.Image.fromURL(imagesList[3], function(img) {
+                var oImg = img.set({ left: 300, top: 590}).scale(1);
+                oImg.scaleToWidth(230);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath4;
+                }, { crossOrigin: 'anonymous'});
+
+                //FOURTH USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 300, top: 800}).scale(0.8);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+                //FIVE IMAGE
+                fabric.Image.fromURL(imagesList[4], function(img) {
+                var oImg = img.set({ left: 300, top: 340}).scale(1);
+                oImg.scaleToWidth(230);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath5;
+                }, { crossOrigin: 'anonymous'});
+
+                //FIVE USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 300, top: 550}).scale(0.8);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+                //PREGUNTAS
+                fabric.Image.fromURL(imgPreguntas, function(img) {
+                var oImg = img.set({ left: 65, top: 410}).scale(0.5);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+            
+            
+            }
+
+            else if (imagesList.length == 6){
+                var clipPath = new fabric.Rect({ width: 200, height:200, top: 80, left: 40, absolutePositioned: true, rx:10, ry:10 });
+                var clipPath2 = new fabric.Rect({ width: 200, height:200, top: 590, left: 40, absolutePositioned: true, rx:10, ry:10 });
+                var clipPath3 = new fabric.Rect({ width: 200, height:200, top: 80, left: 300, absolutePositioned: true, rx:10, ry:10 });
+                var clipPath4 = new fabric.Rect({ width: 200, height:200, top: 590, left: 300, absolutePositioned: true, rx:10, ry:10 });
+                var clipPath5 = new fabric.Rect({ width: 200, height:200, top: 340, left: 340, absolutePositioned: true, rx:10, ry:10 });
+                var clipPath6 = new fabric.Rect({ width: 200, height:200, top: 340, left: 0, absolutePositioned: true, rx:10, ry:10 });
+
+                
+                //FIRST IMAGE
+                fabric.Image.fromURL(imagesList[0], function(img) {
+                var oImg = img.set({ left: 40, top: 50}).scale(1);
+                oImg.scaleToWidth(230);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath;
+                }, { crossOrigin: 'anonymous'});
+
+                //FIRST USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 40, top: 290}).scale(0.8);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+
+                //SECOND IMAGE
+                fabric.Image.fromURL(imagesList[1], function(img) {
+                var oImg = img.set({ left: 40, top: 590}).scale(1);
+                oImg.scaleToWidth(230);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath2;
+                }, { crossOrigin: 'anonymous'});
+
+                //SECOND USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 40, top: 800}).scale(0.8);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+                //THIRD IMAGE
+                fabric.Image.fromURL(imagesList[2], function(img) {
+                var oImg = img.set({ left: 300, top: 80}).scale(1);
+                oImg.scaleToWidth(230);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath3;
+                }, { crossOrigin: 'anonymous'});
+
+                //THIRD USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 300, top: 290}).scale(0.8);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+                //FOURTH IMAGE
+                fabric.Image.fromURL(imagesList[3], function(img) {
+                var oImg = img.set({ left: 300, top: 590}).scale(1);
+                oImg.scaleToWidth(230);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath4;
+                }, { crossOrigin: 'anonymous'});
+
+                //FOURTH USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 300, top: 800}).scale(0.8);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+                //FIVE IMAGE
+                fabric.Image.fromURL(imagesList[4], function(img) {
+                var oImg = img.set({ left: 340, top: 340}).scale(1);
+                oImg.scaleToWidth(230);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath5;
+                }, { crossOrigin: 'anonymous'});
+
+                //FIVE USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 340, top: 550}).scale(0.8);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+                //SIX IMAGE
+                fabric.Image.fromURL(imagesList[5], function(img) {
+                var oImg = img.set({ left: 0, top: 340}).scale(1);
+                oImg.scaleToWidth(230);
+                canvas.add(oImg);
+                oImg.clipPath = clipPath6;
+                }, { crossOrigin: 'anonymous'});
+
+                //SIX USERNAME
+                fabric.Image.fromURL(imgUsername, function(img) {
+                var oImg = img.set({ left: 0, top: 550}).scale(0.8);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+
+
+                //PREGUNTAS
+                fabric.Image.fromURL(imgPreguntas, function(img) {
+                var oImg = img.set({ left: 210, top: 400}).scale(0.4);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
+            
+            }
+            else{
+                canvas.add(new fabric.Text('Por favor selecciona entre 2 y 6 imágenes', { 
+                fontFamily: 'Montserrat', 
+                color: "black",
+                fontSize: 20,
+                left: 40, 
+                top: 100 
+            }));
+            }
+
+
+            canvas.add(new fabric.Text('Auto genera tu plantilla en @flamingueo', { 
+                fontFamily: 'Montserrat', 
+                color: "black",
+                fontSize: 20,
+                left: 60, 
+                top: 900 
+            }));
+
+            document.querySelector("#download").style.display = "block";
+
+            download_img = function(el) {
+            var imag = canvas.toDataURL("image/jpg");
+            el.href = imag;
+            };
+
+            document.querySelector("#files").style.display = "none";
+            document.querySelector("#c").style.display = "block";
+            document.querySelector("#tryAgain").style.display = "block";
+
+        }
+    </script>
+    
+</body>
+</html>
