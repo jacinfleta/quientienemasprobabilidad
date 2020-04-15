@@ -26,6 +26,7 @@
             <div id="filesContainer" class="custom-file">
                 <input id="files" type="file" class="custom-file-input" id="customFileLang" lang="es" multiple>
                 <label class="custom-file-label" for="customFileLang">Seleccionar Fotos</label>
+                <center><p style="margin-top:10px"><b>Funciona mejor con fotos lo más cuadradas posible.</b></p></center>
             </div>
         <br>
         <a class="btn btn-primary" style="margin:20px; max-width:540px; width:90%; display:none" id="download" download="myImage.jpg" href="" onclick="download_img(this);">Ver / Descargar plantilla</a>
@@ -115,7 +116,7 @@
             else if (imagesList.length == 3){
                 var clipPath = new fabric.Rect({ width: 250, height:250, top: 70, left: 10, absolutePositioned: true, rx:10, ry:10 });
                 var clipPath2 = new fabric.Rect({ width: 250, height:250, top: 320, left: 280, absolutePositioned: true, rx:10, ry:10 });
-                var clipPath3 = new fabric.Rect({ width: 250, height:250, top: 580, left: 10, absolutePositioned: true, rx:10, ry:10 });
+                var clipPath3 = new fabric.Rect({ width: 250, height:250, top: 530, left: 10, absolutePositioned: true, rx:10, ry:10 });
 
                 //FIRST IMAGE
                 fabric.Image.fromURL(imagesList[0], function(img) {
@@ -147,7 +148,7 @@
 
                 //THIRD IMAGE
                 fabric.Image.fromURL(imagesList[2], function(img) {
-                var oImg = img.set({ left: 10, top: 580}).scale(1);
+                var oImg = img.set({ left: 10, top: 530}).scale(1);
                 oImg.scaleToWidth(260);
                 canvas.add(oImg);
                 oImg.clipPath = clipPath3;
@@ -155,7 +156,7 @@
 
                 //THIRD USERNAME
                 fabric.Image.fromURL(imgUsername, function(img) {
-                var oImg = img.set({ left: 10, top: 840}).scale(1);
+                var oImg = img.set({ left: 10, top: 790}).scale(1);
                 canvas.add(oImg);
                 }, { crossOrigin: 'anonymous'});
 
