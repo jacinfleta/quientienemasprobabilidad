@@ -12,19 +12,26 @@
 </head>
 
 <body>
-    <div class="container"></div>
+    <div class="container">
         <div class ="row justify-content-center">
         <img src="img/logo.png" width="120px" height="120px">
         </div>
+
         <div class ="row justify-content-center" style="margin:20px;">
             <p>Crea una plantilla de <b>¿Quien tiene más probabilidad de...?</b> Sube una imagen por cada amiga (mínimo 2 y máximo 6)</p>
         </div>
         <div class ="row justify-content-center">
-        <input id ="files" style="margin:20px;" type='file' multiple/>
+            <div class="col-md-auto">
+
+            <div id="filesContainer" class="custom-file">
+                <input id="files" type="file" class="custom-file-input" id="customFileLang" lang="es" multiple>
+                <label class="custom-file-label" for="customFileLang">Seleccionar Fotos</label>
+            </div>
         <br>
+        <a class="btn btn-primary" style="margin:20px; max-width:540px; width:90%; display:none" id="download" download="myImage.jpg" href="" onclick="download_img(this);">Ver / Descargar plantilla</a>
         <button type="button" class="btn btn-secondary" id="tryAgain" style="margin-top:20px; margin-left:20px; width:90%; max-width:540px; display:none;" onClick="window.location.reload();">Probar otra vez</button>
-        <a class="btn btn-primary" style="margin:20px; max-width:540px; width:90%; display:none" id="download" download="myImage.jpg" href="" onclick="download_img(this);">Descargar para Stories</a>
         </div>
+    </div>
         <canvas style="margin:20px; display:none" id="c" width="540" height="960"></canvas>
         <br>
     </div>
@@ -447,6 +454,7 @@
             el.href = imag;
             };
 
+            document.querySelector("#filesContainer").style.display = "none";
             document.querySelector("#files").style.display = "none";
             document.querySelector("#tryAgain").style.display = "block";
 
