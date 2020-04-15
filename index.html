@@ -31,7 +31,9 @@
         <br>
         <a class="btn btn-primary" style="margin:20px; max-width:540px; width:90%; display:none" id="download" download="myImage.jpg" href="" onclick="download_img(this);">Ver / Descargar plantilla</a>
         <button type="button" class="btn btn-secondary" id="tryAgain" style="margin-top:20px; margin-left:20px; width:90%; max-width:540px; display:none;" onClick="window.location.reload();">Probar otra vez</button>
-        </div>
+        <br>
+        <p id="warning" style="display:none"><b>Si el resultado no es correcto prueba con fotos más cuadradas.</b></p>
+    </div>
     </div>
         <canvas style="margin:20px; display:none" id="c" width="540" height="960"></canvas>
         <br>
@@ -456,6 +458,7 @@
             document.querySelector("#filesContainer").style.display = "none";
             document.querySelector("#files").style.display = "none";
             document.querySelector("#tryAgain").style.display = "block";
+            document.querySelector("#warning").style.display = "block";
 
         }
     </script>
