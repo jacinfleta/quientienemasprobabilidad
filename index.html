@@ -58,15 +58,16 @@
         });
 
 
-        function generateCanva(imagesList) { 
+        function generateCanva(imagesList) {
+            var imgByFlamingueo = "img/byflamingueo.png";
             var imgPreguntas = "img/preguntas.png";
             var imgUsername = "img/username.png";
             var canvas = new fabric.Canvas('c',{
-        selection : false,
-        controlsAboveOverlay:true,
-        centeredScaling:true,
-        allowTouchScrolling: true
-        });
+            selection : false,
+            controlsAboveOverlay:true,
+            centeredScaling:true,
+            allowTouchScrolling: true
+            });
             
             canvas.backgroundColor ="#f7cac9";
             
@@ -432,20 +433,17 @@
                 canvas.add(new fabric.Text('Por favor selecciona entre 2 y 6 imágenes', { 
                 fontFamily: 'Montserrat', 
                 color: "black",
-                textAlign: 'center',
                 fontSize: 20,
+                left: 40, 
                 top: 100 
             }));
             }
 
-
-            canvas.add(new fabric.Text('Auto genera tu plantilla en @flamingueo', { 
-                fontFamily: 'Montserrat', 
-                color: "black",
-                fontSize: 20,
-                left: 60, 
-                top: 900 
-            }));
+            //FIRMA
+            fabric.Image.fromURL(imgByFlamingueo, function(img) {
+                var oImg = img.set({ left: 145, top: 860}).scale(1);
+                canvas.add(oImg);
+                }, { crossOrigin: 'anonymous'});
 
             document.querySelector("#download").style.display = "block";
 
